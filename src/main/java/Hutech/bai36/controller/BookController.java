@@ -3,6 +3,8 @@ package Hutech.bai36.controller;
 import Hutech.bai36.entity.Book;
 import Hutech.bai36.services.BookService;
 import Hutech.bai36.services.CategoryService;
+import Hutech.bai36.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ public class BookController {
     private BookService bookService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private UserService userService;
     @GetMapping
     public String showAllBooks(Model model){
         List<Book> books = bookService.getAllBooks();
@@ -31,11 +35,12 @@ public class BookController {
         return "book/add";
     }
     @PostMapping("/add")
-    public String addBook(@ModelAttribute("book") Book book, BindingResult bindingResult,Model model){
-    if(bindingResult.hasErrors()){ model.addAttribute("categories",categoryService.getAllCategories());
-    return "book/add";}
-    bookService.addBook(book);
-    return "redirect:/books";}
+    public String addBook(@Valid @ModelAttribute("book") Book book, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){ model.addAttribute("categories",categoryService.getAllCategories());
+            return "book/add";}
+        bookService.addBook(book);
+        return "redirect:/books";
+    }
     @GetMapping("/edit/{id}")
     public String editBookForm(@PathVariable("id") Long id, Model model){
         Book book = bookService.getBookById(id);
@@ -50,7 +55,6 @@ public class BookController {
         bookService.updateBook(book);
         return "redirect:/books";
     }
-//
 //    @GetMapping("/delete/{id}")
 //    public String deleteBook(@PathVariable("id") Long id){
 //        bookService.deleteBook(id);

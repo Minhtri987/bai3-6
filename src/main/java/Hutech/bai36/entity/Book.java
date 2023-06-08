@@ -30,7 +30,7 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name="category_id")
-//    @ValidCategoryId
+    @ValidCategoryId
     private Category category;
 
     @ManyToOne

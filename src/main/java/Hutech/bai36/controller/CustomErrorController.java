@@ -1,4 +1,4 @@
-package Hutech.bai36;
+package Hutech.bai36.controller;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;

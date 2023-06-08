@@ -66,7 +66,7 @@ public class SecurityConfig {
                         .userDetailsService(userDetailsService())
                 )
                 .exceptionHandling(exceptionHandling ->
-                        exceptionHandling.accessDeniedPage("/403"))
+                        exceptionHandling.accessDeniedPage("/404"))
                 .build();
     }
 }
